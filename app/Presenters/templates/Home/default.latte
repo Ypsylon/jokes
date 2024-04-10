@@ -1,18 +1,19 @@
 {block content}
-<div class="row">
-	<div class="col-12 py-5 text-center">
-		<h1>Best site to explore some great Chuck Norris jokes.</h1>
+	<div class="row">
+		<div class="col-12 py-5 text-center">
+			<h1>Best site to explore some great Chuck Norris jokes.</h1>
+		</div>
 	</div>
-</div>
 
-<div class="row">
-	<div class="col-lg-6 col-12">
-		{include tile, 'Chuck Norris meme generator', 'meme'}
+	<div class="row">
+		<div class="col-lg-6 col-12">
+			{include tile, 'Chuck Norris meme generator', 'meme'}
+		</div>
+		<div class="col-lg-6 col-12">
+			{include tile 'Same initials display', 'initialsTable'}
+		</div>
 	</div>
-	<div class="col-lg-6 col-12">
-		{include tile 'Same initials display', 'initialsTable'}
-	</div>
-</div>
+{/block}
 
 {define tile $header, $component}
 	<div class="tile">
