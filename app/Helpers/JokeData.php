@@ -11,10 +11,10 @@ class JokeData
         return new static(
             intval($arr['id']),
             $arr['name'],
-            intval($arr['firstNumber']),
-            intval($arr['secondNumber']),
-            intval($arr['thirdNumber']),
-            intval($arr['calculation']),
+            floatval($arr['firstNumber']),
+            floatval($arr['secondNumber']),
+            floatval($arr['thirdNumber']),
+            $arr['calculation'],
             $arr['joke'],
             DateTime::from($arr['createdAt']),
         );
@@ -23,10 +23,10 @@ class JokeData
     public function __construct(
         protected int $id,
         protected string $name,
-        protected int $firstNumber,
-        protected int $secondNumber,
-        protected int $thirdNumber,
-        protected int $calculation,
+        protected float $firstNumber,
+        protected float $secondNumber,
+        protected float $thirdNumber,
+        protected string $calculation,
         protected string $joke,
         protected DateTime $createdAt,
     )
@@ -101,42 +101,42 @@ class JokeData
         $this->name = $name;
     }
 
-    public function getFirstNumber(): int
+    public function getFirstNumber(): float
     {
         return $this->firstNumber;
     }
 
-    public function setFirstNumber(int $firstNumber): void
+    public function setFirstNumber(float $firstNumber): void
     {
         $this->firstNumber = $firstNumber;
     }
 
-    public function getSecondNumber(): int
+    public function getSecondNumber(): float
     {
         return $this->secondNumber;
     }
 
-    public function setSecondNumber(int $secondNumber): void
+    public function setSecondNumber(float $secondNumber): void
     {
         $this->secondNumber = $secondNumber;
     }
 
-    public function getThirdNumber(): int
+    public function getThirdNumber(): float
     {
         return $this->thirdNumber;
     }
 
-    public function setThirdNumber(int $thirdNumber): void
+    public function setThirdNumber(float $thirdNumber): void
     {
         $this->thirdNumber = $thirdNumber;
     }
 
-    public function getCalculation(): int
+    public function getCalculation(): string
     {
         return $this->calculation;
     }
 
-    public function setCalculation(int $calculation): void
+    public function setCalculation(string $calculation): void
     {
         $this->calculation = $calculation;
     }
