@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	# WWW subdomain
+	#RewriteCond %{HTTP_HOST} !^www\.
+	#RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+
+	# https
+	#RewriteCond %{HTTPS} !on
+	#RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+	#RewriteRule ^.*$ https://%{HTTP_HOST}%{REQUEST_URI} [L,QSA,NE]
+
+    	# nette
+	RewriteRule ^$ /www/ [L]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_URI} !^/www/
+	RewriteRule ^(.*)$ /www/$1
+</IfModule>
