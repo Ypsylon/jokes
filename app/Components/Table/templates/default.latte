@@ -37,7 +37,7 @@
     <div class="row">
         <div class="col-12 text-center">
             <a n:href="show!" class="btn btn-primary" onclick="return confirm('Skutečně chcete provést akci')">Zobrazit</a>
-            <a n:href="hide!" class="btn btn-danger" onclick="return confirm('Skutečně chcete provést akci')">Schovat</a>
+            <a n:href="hide!" n:if="$data" class="btn btn-danger" onclick="return confirm('Skutečně chcete provést akci')">Schovat</a>
         </div>
     </div>
 {/block}

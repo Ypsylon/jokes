@@ -1,6 +1,8 @@
 body {
     background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
     background-repeat: no-repeat;
+
+    min-height: 100vh;
 }
 
 .content {

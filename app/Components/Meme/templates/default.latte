@@ -19,7 +19,7 @@
                     Vytvořit meme
                 </a>
 
-                <a n:href="hide!" onclick="return confirm('Skutečně chcete tuto akci provést?')" class="btn btn-danger">
+                <a n:href="hide!" n:if="$joke" onclick="return confirm('Skutečně chcete tuto akci provést?')" class="btn btn-danger">
                     Zahodit
                 </a>
             </div>
