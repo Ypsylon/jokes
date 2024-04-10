@@ -1,10 +1,10 @@
 {varType array|App\Helpers\JokeData[] $data}
 
 {block content}
-    <div class="row">
+    <div class="row" n:if="$data">
         <div class="col-12 py-4">
             <div class="table-responsive table-max-height">
-                <table class="table table-sm table-striped" n:if="$data">
+                <table class="table table-sm table-striped">
                     <thead>
                         <tr>
                             <th>Id</th>

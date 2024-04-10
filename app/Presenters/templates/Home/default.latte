@@ -6,20 +6,18 @@
 </div>
 
 <div class="row">
-	<div class="col-12">
-		<div class="tile">
-			<h2 class="text-center">Chuck Norris meme generator</h2>
-			{control meme}
-		</div>
+	<div class="col-lg-6 col-12">
+		{include tile, 'Chuck Norris meme generator', 'meme'}
+	</div>
+	<div class="col-lg-6 col-12">
+		{include tile 'Same initials display', 'initialsTable'}
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-12">
-		<div class="tile">
-			<h2 class="text-center">Same initials display</h2>
-			{control initialsTable}
-		</div>
+{define tile $header, $component}
+	<div class="tile">
+		<h2 class="text-center">{$header}</h2>
+		{control $component}
 	</div>
-</div>
+{/define}
 
