@@ -14,11 +14,8 @@ class DataHelper
     /** @var array|JokeData[] */
     protected array $data = [];
 
-    /** @var array|null|JokeData[] */
-    protected ?array $memeDataSubset = null;
-
-    /** @var array|null|JokeData[]  */
-    protected ?array $sameInitialsSubset = null;
+    /** @var array|JokeData[] */
+    protected array $cachedData = [];
 
     public function __construct()
     {
@@ -39,26 +36,53 @@ class DataHelper
         return $this->data;
     }
 
-    public function getMemeData(): array
+    protected function getCachedData(string $string, \Closure $filter): array
     {
         // If we have already cached data we can use them, otherwise we need to filter data first
-        if ($this->memeDataSubset) {
-            return $this->memeDataSubset;
-        }
+        if (isset($this->cachedData[$string])) return $this->cachedData[$string];
 
-        $this->memeDataSubset = array_filter($this->data, fn($item) => $item->isValidMemeJoke(self::MEME_MAX_LENGTH));
-        return $this->memeDataSubset;
+        $this->cachedData[$string] = array_filter($this->getData(), $filter);
+        return $this->cachedData[$string];
+    }
+
+    public function getMemeData(): array
+    {
+        return $this->getCachedData(
+            'meme',
+            fn($item) => $item->isValidMemeJoke(self::MEME_MAX_LENGTH),
+        );
     }
 
     public function getSameInitialsData(): array
     {
-        // If we have already cached data we can use them, otherwise we need to filter data first
-        if ($this->sameInitialsSubset) {
-            return $this->sameInitialsSubset;
-        }
+        return $this->getCachedData(
+            'initials',
+            fn($item) => $item->hasSameInitials(),
+        );
+    }
 
-        $this->sameInitialsSubset = array_filter($this->data, fn($item) => $item->hasSameInitials());
-        return $this->sameInitialsSubset;
+    public function getCalculationData(): array
+    {
+        return $this->getCachedData(
+            'calculation',
+            fn($item) => $item->isCalculationCorrect() && $item->isThirdNumberEven(),
+        );
+    }
+
+    public function getRecentData(): array
+    {
+        return $this->getCachedData(
+            'recent',
+            fn($item) => $item->isRecent(),
+        );
+    }
+
+    public function getChallengeData(): array
+    {
+        return $this->getCachedData(
+            'challenge',
+            fn($item) => $item->isChallengeCorrect(),
+        );
     }
 
     /**

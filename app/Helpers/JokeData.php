@@ -3,9 +3,18 @@
 namespace App\Helpers;
 
 use Nette\Utils\DateTime;
+use Tracy\Debugger;
 
 class JokeData
 {
+    // It does not seem like we need '/' and '*' but better safe then sorry
+    protected const SYMBOLS = [
+        '+',
+        '-',
+        '*',
+        '/',
+    ];
+
     public static function fromArray(array $arr): static
     {
         return new static(
@@ -31,6 +40,68 @@ class JokeData
         protected DateTime $createdAt,
     )
     {
+    }
+
+    public function isChallengeCorrect(): bool
+    {
+        // Hodně simple verze která se hodí jenom na výpočty z testovacích dat
+        // Prakticky každá změna formátu (třebas i jenom 1+1=2)
+        $exploded = explode(' ', $this->getCalculation());
+        $equalIndex = array_search('=', $exploded);
+        if ($equalIndex === false) return false;
+
+        $firstHalf = array_splice($exploded, 0, $equalIndex);
+        $secondHalf = $exploded;
+        unset($secondHalf[0]);
+
+        return $this->computeArray($firstHalf) == $this->computeArray($secondHalf);
+    }
+
+    protected function computeArray(array $arr): float
+    {
+        $number = 0;
+        $operation = null;
+
+        foreach ($arr as $symbol) {
+            if (in_array($symbol, self::SYMBOLS)) {
+                $operation = $symbol;
+                continue;
+            }
+
+            if ($operation !== null) {
+                $number = match ($operation) {
+                    '-' => $number -= intval($symbol),
+                    '*' => $number *= intval($symbol),
+                    '/' => $number /= intval($symbol),
+                    default => $number += intval($symbol),
+                };
+
+                continue;
+            }
+
+            $number = intval($symbol);
+        }
+
+        return $number;
+    }
+
+    public function isRecent(): bool
+    {
+        $now = DateTime::from('now');
+        $start = $now->modifyClone('-1 month');
+        $end = $now->modifyClone('+1 month');
+
+        return $this->getCreatedAt() >= $start && $this->getCreatedAt() <= $end;
+    }
+
+    public function isThirdNumberEven(): bool
+    {
+        return intval($this->getThirdNumber()) == $this->getThirdNumber() && $this->getThirdNumber() % 2 === 0;
+    }
+
+    public function isCalculationCorrect(): bool
+    {
+        return $this->getFirstNumber() / $this->getSecondNumber() == $this->getThirdNumber();
     }
 
     /**

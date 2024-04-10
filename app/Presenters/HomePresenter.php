@@ -34,4 +34,19 @@ final class HomePresenter extends Presenter
         return $this->tableComponentFactory->create(fn() => $this->dataHelper->getSameInitialsData());
     }
 
+    protected function createComponentCalculationTable(): TableComponent
+    {
+        return $this->tableComponentFactory->create(fn() => $this->dataHelper->getCalculationData());
+    }
+
+    protected function createComponentRecentTable(): TableComponent
+    {
+        return $this->tableComponentFactory->create(fn() => $this->dataHelper->getRecentData());
+    }
+
+    protected function createComponentChallengeTable(): TableComponent
+    {
+        return $this->tableComponentFactory->create(fn() => $this->dataHelper->getChallengeData());
+    }
+
 }
