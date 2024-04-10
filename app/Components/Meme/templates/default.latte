@@ -1,0 +1,28 @@
+{varType ?App\Helpers\JokeData $joke}
+
+{block content}
+    <div class="meme-wrapper">
+        <div class="row" n:if="$joke">
+            <div class="col-12 pb-5">
+                <div class="image-wrapper">
+                    <div class="joke-wrapper d-flex flex-column align-items-center p-4">
+                        <span class="joke flex-grow-1">{$joke->getJokeInTwoLines()[0]}</span>
+                        <span class="joke">{$joke->getJokeInTwoLines()[1]}</span>
+                    </div>
+                    <img src="https://www.digilabs.cz/hiring/chuck.jpg" alt="Hehe, so funny!">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <a n:href="generate!" class="btn btn-primary">
+                    Vytvořit meme
+                </a>
+
+                <a n:href="hide!" class="btn btn-danger">
+                    Zahodit
+                </a>
+            </div>
+        </div>
+    </div>
+{/block}
