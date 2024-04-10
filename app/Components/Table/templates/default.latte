@@ -1,0 +1,43 @@
+{varType array|App\Helpers\JokeData[] $data}
+
+{block content}
+    <div class="row">
+        <div class="col-12 py-4">
+            <div class="table-responsive table-max-height">
+                <table class="table table-sm table-striped" n:if="$data">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Jméno</th>
+                            <th>První číslo</th>
+                            <th>Druhé číslo</th>
+                            <th>Třetí číslo</th>
+                            <th>Kalkulace</th>
+                            <th>Vtip</th>
+                            <th>Vytvořeno dne</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr n:foreach="$data as $item">
+                            <th>{$item->getId()}</th>
+                            <th>{$item->getName()}</th>
+                            <th>{$item->getFirstNumber()}</th>
+                            <th>{$item->getSecondNumber()}</th>
+                            <th>{$item->getThirdNumber()}</th>
+                            <th>{$item->getCalculation()}</th>
+                            <th>{$item->getJoke()}</th>
+                            <th>{$item->getCreatedAt()->format('j.n Y')}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <a n:href="show!" class="btn btn-primary" onclick="return confirm('Skutečně chcete provést akci')">Zobrazit</a>
+            <a n:href="hide!" class="btn btn-danger" onclick="return confirm('Skutečně chcete provést akci')">Schovat</a>
+        </div>
+    </div>
+{/block}

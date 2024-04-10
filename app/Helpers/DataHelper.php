@@ -17,6 +17,9 @@ class DataHelper
     /** @var array|null|JokeData[] */
     protected ?array $memeDataSubset = null;
 
+    /** @var array|null|JokeData[]  */
+    protected ?array $sameInitialsSubset = null;
+
     public function __construct()
     {
         // Let's download latest data set
@@ -45,6 +48,17 @@ class DataHelper
 
         $this->memeDataSubset = array_filter($this->data, fn($item) => $item->isValidMemeJoke(self::MEME_MAX_LENGTH));
         return $this->memeDataSubset;
+    }
+
+    public function getSameInitialsData(): array
+    {
+        // If we have already cached data we can use them, otherwise we need to filter data first
+        if ($this->sameInitialsSubset) {
+            return $this->sameInitialsSubset;
+        }
+
+        $this->sameInitialsSubset = array_filter($this->data, fn($item) => $item->hasSameInitials());
+        return $this->sameInitialsSubset;
     }
 
     /**

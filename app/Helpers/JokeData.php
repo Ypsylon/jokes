@@ -34,6 +34,22 @@ class JokeData
     }
 
     /**
+     * Return's true if initials of birth name and surname are the same
+     *
+     * @return bool
+     */
+    public function hasSameInitials(): bool
+    {
+        $exploded = explode(' ', $this->name);
+        if (count($exploded) < 2) return false;
+
+        $l1 = strtolower(mb_substr($exploded[0], 0, 1));
+        $l2 = strtolower(mb_substr($exploded[count($exploded) - 1], 0, 1));
+
+        return $l1 === $l2;
+    }
+
+    /**
      * Return's array of two halves of joke
      *
      * @return array

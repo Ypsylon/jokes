@@ -2,3 +2,4 @@ services:
     - App\Router\RouterFactory::createRouter
     - App\Helpers\DataHelper
     - App\Components\Meme\IMemeComponentFactory
+    - App\Components\Table\ITableComponentFactory

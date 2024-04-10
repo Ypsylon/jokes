@@ -2,11 +2,11 @@
 
 namespace App\Components\Meme;
 
+use App\Components\BaseComponent;
 use App\Helpers\DataHelper;
 use Nette\Application\Attributes\Persistent;
-use Nette\Application\UI\Control;
 
-class MemeComponent extends Control
+class MemeComponent extends BaseComponent
 {
     #[Persistent]
     public bool $isShowingImage = false;
@@ -25,15 +25,6 @@ class MemeComponent extends Control
 
         $this->template->joke = $joke;
         $this->template->render();
-    }
-
-    protected function baseRedirect(): void
-    {
-        if ($this->getPresenterIfExists()?->isAjax() ?? false) {
-            $this->redrawControl('this');
-        } else {
-            $this->getPresenterIfExists()?->redirect('this');
-        }
     }
 
     public function handleGenerate(): void
