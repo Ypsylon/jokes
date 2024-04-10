@@ -35,7 +35,7 @@ body {
 }
 
 .image-wrapper img {
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .image-wrapper .joke-wrapper
